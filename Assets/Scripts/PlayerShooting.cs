@@ -70,6 +70,7 @@ public class PlayerShooting : MonoBehaviour
                 Debug.Log("Null");
             }
         }
+        bullets = 0;
     }
 
     void OnDrawGizmosSelected()
