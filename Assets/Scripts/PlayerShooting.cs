@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
@@ -7,15 +8,28 @@ public class PlayerShooting : MonoBehaviour
     public float attackWidth = 1f;
     public float attackHeight = 3f;
     public int damage = 10;
+    public int bullets;
 
     [Header("Layers")]
     public LayerMask enemyLayer;
+    public GameObject bulletIcon;
+    public float money = 0;
+    public float moneyFromKill = 200;
+    public TMP_Text moneyText;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && bullets > 0)
         {
             Attack();
+        }
+        if(bullets == 1)
+        {
+            bulletIcon.SetActive(true);
+        }
+        else
+        {
+            bulletIcon.SetActive(false);
         }
     }
 
@@ -45,7 +59,8 @@ public class PlayerShooting : MonoBehaviour
         foreach (RaycastHit hit in hits)
         {
             EnemyHealth enemyHealth = hit.collider.gameObject.GetComponentInParent<EnemyHealth>();
-
+            money += moneyFromKill;
+            moneyText.text = money.ToString() + "$";
             if (enemyHealth != null)
             {
                 enemyHealth.Death();
@@ -81,5 +96,12 @@ public class PlayerShooting : MonoBehaviour
             Vector3.zero,
             halfExtents * 2f
         );
+    }
+    public void GetBullets()
+    {
+        if(bullets == 0)
+        {
+            bullets +=1;
+        }
     }
 }

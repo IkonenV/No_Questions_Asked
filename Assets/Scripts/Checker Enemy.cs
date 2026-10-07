@@ -33,6 +33,7 @@ public class CheckerEnemy : MonoBehaviour
 
     [Header("References")]
     public NavMeshAgent agent;
+    Animator animator;
 
     private bool isJumping = false;
     private bool isStunned = false;
@@ -41,6 +42,7 @@ public class CheckerEnemy : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         if (agent == null)
         {
@@ -343,5 +345,9 @@ public class CheckerEnemy : MonoBehaviour
 
         Gizmos.matrix =
             Matrix4x4.identity;
+    }
+    public void AnimationOff()
+    {
+        animator.enabled = false;
     }
 }
