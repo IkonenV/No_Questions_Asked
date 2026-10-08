@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,10 +8,11 @@ public class PlayerHealth : MonoBehaviour
     public GameObject healthIcon1;
     public GameObject healthIcon2;
     public GameObject healthIcon3;
+    public GameObject deathScreen;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -52,7 +54,16 @@ public class PlayerHealth : MonoBehaviour
     }
     public void Death()
     {
-        Debug.Log("Kuolit");
+        deathScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void ToMenu()
+    {
+        
     }
 
 }
