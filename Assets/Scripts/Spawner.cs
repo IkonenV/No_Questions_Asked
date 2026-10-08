@@ -24,18 +24,6 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnBullet();
-        }
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            SpawnChecker(2);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SpawnHealthPack();
-        }
         gameTimer+=Time.deltaTime;
         if(gameTimer >= waveTime || firstRound && gameTimer >= 5)
         {

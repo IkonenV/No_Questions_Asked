@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject healthIcon2;
     public GameObject healthIcon3;
     public GameObject deathScreen;
+    public PlayerShooting playerShooting;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,6 +57,7 @@ public class PlayerHealth : MonoBehaviour
     {
         deathScreen.SetActive(true);
         Time.timeScale = 0;
+        playerShooting.ScoreCounting();
     }
     public void TryAgain()
     {
@@ -63,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void ToMenu()
     {
-        
+        SceneManager.LoadScene("Menu");
     }
 
 }

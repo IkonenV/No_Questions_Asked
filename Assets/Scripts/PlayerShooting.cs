@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +18,14 @@ public class PlayerShooting : MonoBehaviour
     public float moneyFromKill = 200;
     public TMP_Text moneyText;
 
+    [SerializeField] private RectTransform uiElement;
+    [SerializeField] private Camera worldCamera;
+    public GameObject bangObject;
+    public Transform bangPos;
+
+    public TMP_Text bulletsText;
+    bool canShoot = true;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && bullets > 0)
@@ -25,11 +34,11 @@ public class PlayerShooting : MonoBehaviour
         }
         if(bullets == 1)
         {
-            bulletIcon.SetActive(true);
+            bulletsText.text = "Bullets 1/1";
         }
         else
         {
-            bulletIcon.SetActive(false);
+            bulletsText.text = "Bullets 0/1";
         }
     }
 
@@ -71,6 +80,20 @@ public class PlayerShooting : MonoBehaviour
             }
         }
         bullets = 0;
+
+        if (canShoot)
+        {
+            Vector3 screenPosition = worldCamera.WorldToScreenPoint(bangPos.position);
+            uiElement.position = screenPosition;
+            bangObject.SetActive(true);
+            StartCoroutine(BangDisable());
+        }
+
+    }
+    IEnumerator BangDisable()
+    {
+        yield return new WaitForSeconds(0.3f);
+        bangObject.SetActive(false);
     }
 
     void OnDrawGizmosSelected()
@@ -104,5 +127,14 @@ public class PlayerShooting : MonoBehaviour
         {
             bullets +=1;
         }
+    }
+    public void ScoreCounting()
+    {
+        float highScore = PlayerPrefs.GetFloat("Highscore");
+        if(money > highScore)
+        {
+            PlayerPrefs.SetFloat("Highscore", money);
+        }
+        canShoot = false;
     }
 }
